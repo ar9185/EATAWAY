@@ -1,0 +1,53 @@
+{% extends 'bootstrap/base.html'%}
+{% block title%}
+NOTE
+{% endblock%}
+{%block content%}
+<div  style="width: 100%; height:70px; line-height: 70px; list-style-type:none; margin:0; padding:0; overflow: hidden; background-color: white ;border-bottom:2px solid green;position:fixed ">
+    <a href="/"><img src="./static/Screen Shot 2020-06-01 at 1.07.43 PM.png" width="150" height="50" style="float:left; margin:10px"></a>
+    <ul style="float:right">
+
+        <li style="float: left; text-align: center;  width:120px; height:70px; line-height:70px; list-style:none; hover background:#dc3545 "><a style="color:green; text-decoration:none; display:block" href="/add">Add products</a></li>
+        <li style="float: left; text-align: center;  width:120px; height:70px; line-height:70px; list-style:none"><a style="color:green; text-decoration:none; display:block " href="/buy">Buy Products</a></li>
+    </ul>
+
+</div>
+
+<div class="jumbotron" style="background-color:chocolate" >
+
+    <div class=" container text-center" >
+         <h1 style="color:white"> Buy products</h1>
+         <a href="/"><button type="button"  class="btn btn-primary"> Go Back</button></a>
+    </div>
+</div>
+
+
+<div class="container" >
+    <form method="POST" action="" >
+        <div style="display: flex; flex-wrap: wrap" >
+            {%for h in product%}
+                <div style="width: 300px; height: 450px; border-radius: 15px; border:2px solid white; padding: 50px; margin: 20px; box-shadow: 2px 2px 2px lightgray">
+
+                    <img src={{h['Image_Link']}} class="img-thumbnail" alt="fruit" width="200" height="200">
+                    <p class="text-primary" ><b>Item: </b>{{h['Title']}}</p>
+                    <p class="text-primary"><b>Description: </b>{{h['Description']}}</p>
+                    <p class="text-primary"><b>Price: </b>{{h['Price']}}</p>
+                    <p class="text-primary"><b>Unit: </b>{{h['Unit']}}lb</p>
+                    <p class="text-primary"><b>Quantity: </b>{{h['Quantity']}}</p>
+
+                    <select name="{{h['_id']}}">
+                        <option value="0">None</option>
+                        {% for n in range (1, h['Quantity']| int+1)%}
+                            <option value="{{n}}" class="btn btn-warning btn-info btn-lg ">{{n}}</option>
+
+                        {% endfor%}
+                    </select>
+                </div>
+
+            {%endfor%}
+         </div>
+        <input class="btn btn-warning btn-info btn-lg " style="position:relative; top:20px" type="submit" value="Add to Cart">
+    </form>
+</div>
+
+{%endblock%}

@@ -1,0 +1,62 @@
+{% extends 'bootstrap/base.html'%}
+{% block title%}
+NOTE
+{% endblock%}
+
+
+{%block content%}
+
+<div class="jumbotron" style="background-color:chocolate">
+    <div class="container text-center" >
+         <h1 style="color:white"> you bought products</h1>
+         <a href="/delete"><button type="button"  class="btn btn-primary"> Empty cart</button></a>
+    </div>
+</div>
+<style>
+th, td {
+  padding: 20px;
+  border-collapse: collapse;
+
+}
+
+
+</style>
+
+<div class="container" >
+    <table style="margin:auto; padding:20px" >
+        <tbody>
+            <tr style="border-bottom:2px solid black">
+                <td style="padding:20px">Shopping Cart</td>
+                <td>  </td>
+                <td style="border-left:1px solid lightgray">Price</td>
+            </tr>
+            {% for x in products%}
+                <tr style="border-left:1px solid lightgray">
+                    <td><a href="/delete/{{x['_id']}}"> &#10060;</a></td>
+                </tr>
+                <tr style="border-left:1px solid lightgray">
+                    <td rowspan="2"  ><img src={{x['Image_Link']}} class="img-thumbnail" alt="fruit" width="150" height="150"></td>
+                    <td style="vertical-align: top; text-align: left; font-size: 20px"><a href="/buy">{{x['Title']}}</a></td>
+                    <th style="border-left:1px solid lightgray">${{x['Price']}}</th>
+                </tr>
+                <tr style="border-bottom:2px solid black">
+                    <td>
+                        <select name="{{x['_id']}}">
+                            <option value="{{x['bought']}}">qty: {{x['bought']}}</option>
+                            {%for c in range (0, x['Quantity']| int+1)%}
+                                <option value="{{c}}" class="btn btn-warning btn-info btn-lg "> {{c}}</option>
+
+                            {% endfor%}
+                        </select>
+                    </td>
+                </tr>
+            {%endfor%}
+            <tr style="border-top: 2px solid black; border-bottom:2px solid black; border-left:1px solid lightgray">
+                <td >total price</td>
+                <th >${{total}}</th>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+{%endblock%}
